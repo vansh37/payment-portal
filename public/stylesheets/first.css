@@ -1,0 +1,14 @@
+#main{
+    width: 100%;
+    height:600px;
+    display: flex;
+    justify-content: center;
+}
+
+#payment-cost{
+    margin-top:300px;
+}
+#buttons{
+    display: flex;
+    justify-content: space-between;
+}
