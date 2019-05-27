@@ -3,7 +3,9 @@ class Card extends React.Component{             /// return debit/credit card for
         cost = this.props.value;
         return(
             <div>
-               
+               <h1>
+                   card
+               </h1>
             </div>
         );
     }
@@ -95,36 +97,33 @@ class App extends React.Component{
     render(){
         //const val = this.props.cost;
         /// https://reactjs.org/docs/handling-events.html IDK how bind works 
+        const email = this.props.email;
+        const phone = this.props.phone;
+        const bill = (email) ? email : phone;
         return (
             <div id ="main" >
                <div id = "left-main">
-                   <button onClick = {this.handleClick.bind(this , 1)}>
-                       <h2>
-                           Debit/Credit Card
-                       </h2>
+                   <h1>Payment Methods</h1>
+                   <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 1)}>
+                     <i className="fas fa-credit-card"></i>Card
                    </button>
-                   <button onClick = {this.handleClick.bind(this , 2)}>
-                       <h2>
-                           UPI
-                       </h2>
+                   <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 2)}>
+                     <i className="fas fa-mobile-alt"></i> UPI
                    </button>
-                   <button onClick = {this.handleClick.bind(this , 3)}>
-                       <h2>
-                           Netbanking
-                       </h2>
+                   <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 3)}>
+                      <i className="fas fa-globe"></i>Netbanking
                    </button>
-                   <button onClick = {this.handleClick.bind(this , 4)}>
-                       <h2>
-                           Paytm
-                       </h2>
+                   <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 4)}>
+                     <i className="fas fa-qrcode"></i> Paytm
                    </button>
                </div>
                <div id ="right-main">
                     <div id = "right-main-top">
-                        <h1>
+                        <h3>
                             You have to pay Rs.
-                            {this.props.cost}
-                        </h1>
+                            {this.props.cost}. Your Bill will be sent to 
+                            {" " + bill}
+                        </h3>
                     </div>
                     <div id = "right-main-bottom">
                             payment insert here
@@ -135,5 +134,5 @@ class App extends React.Component{
         );
     }
 }
-ReactDOM.render(<App cost={cost} name={'vanshaj'}/>, document.getElementById("root"));
+ReactDOM.render(<App cost={cost} phone ={phone} email = {email}/>, document.getElementById("root"));
 
