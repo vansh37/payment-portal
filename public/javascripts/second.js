@@ -1,11 +1,49 @@
 class Card extends React.Component{             /// return debit/credit card form
+
+    handleSubmit(){
+        //alert("form submitted");
+        const value = document.forms["card-form"]["cardNumber"].value;
+       // alert(value);
+        const flag =  value.split('')
+            .reverse()
+            .map( (x) => parseInt(x, 10) )
+            .map( (x,idx) => idx % 2 ? x * 2 : x )
+            .map( (x) => x > 9 ? (x % 10) + 1 : x )
+            .reduce( (accum, x) => accum += x ) % 10 === 0;
+
+        if (flag == false){
+            alert("Wrong card value entered");
+            return false;
+        }else{
+            return true;
+        }
+    }
     render(){
         cost = this.props.value;
         return(
-            <div>
-               <h1>
-                   card
-               </h1>
+            <div id="card-container">
+                <form name = "card-form" onSubmit = {this.handleSubmit} >
+                    <label htmlFor="number">Card number</label>
+                    <input type="number" className="form-control" id="number"
+                        name = "cardNumber" placeholder="XXXXXXXXXXXXXXXX" required>
+                    </input>
+                    <label htmlFor="month">Expiry Date</label>
+                    
+                    <div className="form-control">
+                        <input type="number"  id = "month"
+                            name = "month" placeholder = "MM" required></input>
+                        <input type = "number" id = "year"
+                            name = "year" placeholder="YY" required></input>
+                    </div>
+                    <label htmlFor ="cvv">CVV</label>
+                    <div className="form-control">
+                         <input type = "number" id = "cvv"
+                            name = "cvv" placeholder = "CVV" required></input>
+                    </div>
+                        <button type="submit" className = "btn btn-success">Submit</button>
+                        <button type="reset" className = "btn btn-danger">Cancel</button>
+                    
+                </form>
             </div>
         );
     }
@@ -126,7 +164,6 @@ class App extends React.Component{
                         </h3>
                     </div>
                     <div id = "right-main-bottom">
-                            payment insert here
                             <PaymentForm paymenttype = {this.state.paymenttype} />
                     </div>
                </div>
