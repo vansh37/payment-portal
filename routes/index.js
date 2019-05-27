@@ -22,8 +22,9 @@ router.get('/contact', function(req, res, next) {
 
 router.get('/second' , function(req , res , next ){
   console.log("get request at second");
-  console.log(req.query.val);
-  res.render('second' , {cost : req.query.val});
+  console.log(req.query.phone);
+  console.log(req.query.email);
+  res.render('second' , {cost : req.query.cost , email : req.query.email , phone : req.query.phone});
 });
 
 

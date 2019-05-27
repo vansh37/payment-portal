@@ -3,10 +3,7 @@ class Card extends React.Component{             /// return debit/credit card for
         cost = this.props.value;
         return(
             <div>
-                <h1>
-                    card payment
-                </h1>
-                {cost}
+               
             </div>
         );
     }
