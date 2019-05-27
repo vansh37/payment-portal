@@ -10,24 +10,25 @@ html , body {
     height:100%;
     width:100%;
     display: grid;
-    grid-template-columns: 35% 65%;
+    grid-template-columns: 25% 75%;
 }
 #left-main{
+    text-align: center;
     display: flex;
-    justify-content: space-around;
     flex-direction: column;
-    background-color: beige;
-    
+}
+.btn{
+    border:1px solid black;
 }
 #right-main{
     display: grid;
     grid-template-rows: 30% 70%;
+    border-left: 2px solid black;
 }
 #right-main-top{
     text-align: center;
-    display: inline-block;
+    border-bottom: 1px dashed black;
 }
 #right-main-bottom{
     text-align: center;
-    background-color: azure;
 }
