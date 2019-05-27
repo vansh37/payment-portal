@@ -16,6 +16,8 @@ html , body {
     text-align: center;
     display: flex;
     flex-direction: column;
+    padding-right:5px;
+    padding-left:3px;
 }
 .btn{
     border:1px solid black;
@@ -23,12 +25,16 @@ html , body {
 #right-main{
     display: grid;
     grid-template-rows: 30% 70%;
-    border-left: 2px solid black;
+    border-left: 1px solid black;
 }
 #right-main-top{
     text-align: center;
     border-bottom: 1px dashed black;
 }
 #right-main-bottom{
-    text-align: center;
+    display : grid;
+    grid-template-columns: 25% 50% 25%;
+}
+#card-container{
+    grid-column-start: 2;
 }
