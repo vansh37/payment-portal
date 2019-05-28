@@ -35,6 +35,6 @@ html , body {
     display : grid;
     grid-template-columns: 25% 50% 25%;
 }
-#card-container{
+.card-container{
     grid-column-start: 2;
 }

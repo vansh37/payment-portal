@@ -21,8 +21,8 @@ class Card extends React.Component{             /// return debit/credit card for
     render(){
         cost = this.props.value;
         return(
-            <div id="card-container">
-                <form name = "card-form" onSubmit = {this.handleSubmit} >
+            <div className="card-container">
+                <form name = "card-form" method="POST" onSubmit = {this.handleSubmit} action="#">
                     <label htmlFor="number">Card number</label>
                     <input type="number" className="form-control" id="number"
                         name = "cardNumber" placeholder="XXXXXXXXXXXXXXXX" required>
@@ -50,16 +50,57 @@ class Card extends React.Component{             /// return debit/credit card for
 }
 
 class Upi extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            buttonClicked: false,
+            validUpi: false,
+            upiId: "",
+        };
+    }
+    handleSubmit(e){
+        /// handling submit form
+        // alert("verify upi details");
+        // this.setState = {buttonClicked  :true};
+        e.preventDefault();             /// prevent enter from submitting
+    }
+    handleVerify(){
+        this.setState({buttonClicked : true});
+        alert(this.state.upiId);
+        //next : verify upi id
+    }
+    handleChange(e){
+        this.setState({upiId : e.target.value});
+        //alert(this.state.upiId);
+    }
     render(){
+      //  console.log(this.state.buttonClicked);
         cost = this.props.value;
-        return (
-            <div>
-                <h1>
-                    UPI payment
-                </h1>
-                {cost}
-            </div>
-        );
+        if (this.state.buttonClicked){
+            return(
+                <div className = "card-container">
+                    <h1>
+                        hallo
+                    </h1>
+                </div>
+            );
+        }else{
+            return(
+                <div className = "card-container">
+                    <form onSubmit = {this.handleSubmit}>
+                        <div className = "form-group pure-form">
+                            <label htmlFor = "upiId">UPI ID</label>
+                            <input type = "email" name = "upiId" id = "upiId"
+                                 placeholder="name@bank" value = {this.state.upiId} 
+                                 onChange = {this.handleChange.bind(this)}></input>
+                            <input type="button" onClick ={this.handleVerify.bind(this)}    /// bind :|
+                                className = "btn btn-primary btn-sm" value="Verify"/>
+                            <button type = "reset" className ="btn btn-danger btn-sm">Clear</button>
+                        </div>
+                    </form>
+                </div>
+            );
+        }
     }
 }
 class Netbanking extends React.Component{
