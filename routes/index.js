@@ -1,4 +1,5 @@
 var express = require('express');
+
 var c = express();
 c.use(express.json());
 c.use(express.urlencoded({extended:true}));
@@ -15,6 +16,14 @@ router.get('/second' , function(req , res , next ){
   console.log(req.query.phone);
   console.log(req.query.email);
   res.render('second' , {cost : req.query.cost , email : req.query.email , phone : req.query.phone} );
+});
+
+router.post('/upiVerify' , function(req , res , next){
+  var upiId = req.body.upiId;
+  console.log(upiId);
+  if (upiId === "vanshaj@bank")
+    res.send("true");
+  else res.send("false");
 });
 
 /// post method not working 

@@ -1,3 +1,6 @@
+//this isnt working ->  import superagent from 'superagent';
+
+
 class Card extends React.Component{             /// return debit/credit card form
 
     handleSubmit(){
@@ -66,24 +69,50 @@ class Upi extends React.Component{
     }
     handleVerify(){
         this.setState({buttonClicked : true});
-        alert(this.state.upiId);
+        //alert(this.state.upiId);
+        // fetch('https://my-json-server.typicode.com/typicode/demo/posts')
+        //     .then(response => response.json())
+        //     .then(json => console.log(json));
+        ///API CALL HERE!!!!
         //next : verify upi id
+
+        superagent
+        .post('/upiVerify')
+        .send({ upiId : this.state.upiId })
+        .then(res => {
+            //console.log(res);
+           //alert('yay got ' + res.text);
+           const verifyStatus = res.text;
+           (verifyStatus == "true") ? 
+            this.setState({validUpi : true}) : this.setState({validUpi : false});
+        });
+       
     }
     handleChange(e){
         this.setState({upiId : e.target.value});
         //alert(this.state.upiId);
     }
+    handleReset(){
+        this.setState({upiId : ""});
+    }
     render(){
       //  console.log(this.state.buttonClicked);
         cost = this.props.value;
+        const validUpi = this.state.validUpi;
         if (this.state.buttonClicked){
-            return(
-                <div className = "card-container">
+            if (validUpi){
+                return(
                     <h1>
-                        hallo
+                        valid upi
                     </h1>
-                </div>
-            );
+                );
+            }else{
+                return(
+                    <h1>
+                        not valid upi
+                    </h1>
+                );
+            }
         }else{
             return(
                 <div className = "card-container">
@@ -94,8 +123,8 @@ class Upi extends React.Component{
                                  placeholder="name@bank" value = {this.state.upiId} 
                                  onChange = {this.handleChange.bind(this)}></input>
                             <input type="button" onClick ={this.handleVerify.bind(this)}    /// bind :|
-                                className = "btn btn-primary btn-sm" value="Verify"/>
-                            <button type = "reset" className ="btn btn-danger btn-sm">Clear</button>
+                                 className = "btn btn-primary btn-sm" value="Verify"/>
+                            <button onClick = {this.handleReset.bind(this)} className ="btn btn-danger             btn-sm">Clear</button>
                         </div>
                     </form>
                 </div>
