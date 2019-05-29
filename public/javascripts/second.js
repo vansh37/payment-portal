@@ -1,11 +1,7 @@
-//this isnt working ->  import superagent from 'superagent';
-
 class Card extends React.Component{             /// return debit/credit card form
 
     handleSubmit(){
-        //alert("form submitted");
         const value = document.forms["card-form"]["cardNumber"].value;
-       // alert(value);
         const flag =  value.split('')
             .reverse()
             .map( (x) => parseInt(x, 10) )
@@ -56,102 +52,56 @@ class Upi extends React.Component{
         super(props);
         this.state = {
             buttonClicked: false,
-            validUpi: false,
+            validUpi: null,
             upiId: "",
         };
     }
-    handleSubmit(e){
-        /// handling submit form
-        // alert("verify upi details");
-        // this.setState = {buttonClicked  :true};
-        e.preventDefault();             /// prevent enter from submitting
-    }
     handleVerify(){
         this.setState({buttonClicked : true});
-        //alert(this.state.upiId);
-        // fetch('https://my-json-server.typicode.com/typicode/demo/posts')
-        //     .then(response => response.json())
-        //     .then(json => console.log(json));
-        ///API CALL HERE!!!!
-        //next : verify upi id
-
         superagent
         .post('/upiVerify')
         .send({ upiId : this.state.upiId })
         .then(res => {
-            //console.log(res);
-           //alert('yay got ' + res.text);
            const verifyStatus = res.text;
            (verifyStatus == "true") ? 
             this.setState({validUpi : true}) : this.setState({validUpi : false});
         });
-       
     }
+
+    handleSubmit(e){
+      //  e.preventDefault();             /// prevent enter from submitting
+        this.handleVerify();
+        if (this.state.validUpi)
+            return true;
+        else return false;
+    }
+   
     handleChange(e){
         this.setState({upiId : e.target.value});
         //alert(this.state.upiId);
-    }
-    handleReset(){
-        this.setState({upiId : ""});
-        this.setState({buttonClicked : false});
-    }
-    handleSend(){
-        // var request = new XMLHttpRequest();
-        // request.open('POST', '/third', true);
-        // request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        // request.send();
-        
-    }
-    
+  }
+
     render(){
       //  console.log(this.state.buttonClicked);
         cost = this.props.value;
         const validUpi = this.state.validUpi;
-        if (this.state.buttonClicked){
-            if (validUpi){
-                return(
-                   <div className = "card-container">
-                       <h3>
-                           UPI id Verified <br/>
-                           send Rs.{this.props.value + " "} via {this.state.upiId +" "} ? 
-                       </h3>
-                       <div>
-                           <input type = "button" 
-                                className = "btn btn-success" value = "send"
-                                    onClick ={this.handleSend.bind(this)}/>
-                            <input type = "button"
-                                className = "btn btn-danger" onClick = {this.handleReset.bind(this)}
-                                value = "cancel"/>
-                       </div>
-                   </div>
-                );
-            }else{
-                return(
-                    <h1>
-                        not valid upi
-                    </h1>
-                );
-            }
-        }else{
+        
             return(
                 <div className = "card-container">
-                    <form onSubmit = {this.handleSubmit}>
+                    <form onSubmit = {this.handleSubmit} action = "/third" method = "POST">
                         <div className = "form-group pure-form">
                             <label htmlFor = "upiId">UPI ID</label>
-                            <input type = "email" name = "upiId" id = "upiId"
+                            <input style={this.state.validUpi === false ? { borderColor: 'red' } : {}} name = "upiId" id = "upiId"
                                  placeholder="name@bank" value = {this.state.upiId} 
                                  onChange = {this.handleChange.bind(this)}></input>
-                            <input type="button" onClick ={this.handleVerify.bind(this)}    /// bind :|
-                                 className = "btn btn-primary btn-sm" value="Verify"/>
-                            <button onClick = {this.handleReset.bind(this)} 
-                                className ="btn btn-danger btn-sm">Clear</button>
+                            <button type = "submit">submit</button>
                         </div>
                     </form>
                 </div>
             );
-        }
     }
 }
+
 class Netbanking extends React.Component{
     render(){
         cost = this.props.value;
@@ -261,5 +211,6 @@ class App extends React.Component{
         );
     }
 }
+
 ReactDOM.render(<App cost={cost} phone ={phone} email = {email}/>, document.getElementById("root"));
 
