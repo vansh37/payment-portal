@@ -171,7 +171,7 @@ class App extends React.Component{
       //  alert(i);
         this.setState({paymenttype : i});
     }
-    return
+    
     render(){
         //const val = this.props.cost;
         /// https://reactjs.org/docs/handling-events.html IDK how bind works 
@@ -181,27 +181,31 @@ class App extends React.Component{
         return (
             <div id ="main" >
                <div id = "left-main">
-                   <h1>Payment Methods</h1>
-                   <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 1)}>
-                     <i className="fas fa-credit-card"></i>Card
-                   </button>
-                   <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 2)}>
-                     <i className="fas fa-mobile-alt"></i> UPI
-                   </button>
-                   <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 3)}>
-                      <i className="fas fa-globe"></i>Netbanking
-                   </button>
-                   <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 4)}>
-                     <i className="fas fa-qrcode"></i> Paytm
-                   </button>
+                   <div id = "left-main-top">
+                        <h4>Payment Options</h4>
+                    </div>
+                    <div id = "left-main-bottom">
+                         <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 1)}>
+                             <i className="fas fa-credit-card"></i>Card
+                        </button>
+                        <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 2)}>
+                            <i className="fas fa-mobile-alt"></i> UPI
+                        </button>
+                        <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 3)}>
+                            <i className="fas fa-globe"></i>Netbanking
+                        </button>
+                        <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 4)}>
+                            <i className="fas fa-qrcode"></i> Paytm
+                        </button>
+                    </div>
                </div>
                <div id ="right-main">
                     <div id = "right-main-top">
-                        <h3>
+                        <h4 id = "payment-text">
                             You have to pay Rs.
                             {this.props.cost}. Your Bill will be sent to 
                             {" " + bill}
-                        </h3>
+                        </h4>
                     </div>
                     <div id = "right-main-bottom">
                             <PaymentForm paymenttype = {this.state.paymenttype} />
@@ -209,6 +213,7 @@ class App extends React.Component{
                </div>
             </div>
         );
+        
     }
 }
 
