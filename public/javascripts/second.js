@@ -1,6 +1,5 @@
 //this isnt working ->  import superagent from 'superagent';
 
-
 class Card extends React.Component{             /// return debit/credit card form
 
     handleSubmit(){
@@ -94,7 +93,16 @@ class Upi extends React.Component{
     }
     handleReset(){
         this.setState({upiId : ""});
+        this.setState({buttonClicked : false});
     }
+    handleSend(){
+        // var request = new XMLHttpRequest();
+        // request.open('POST', '/third', true);
+        // request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        // request.send();
+        
+    }
+    
     render(){
       //  console.log(this.state.buttonClicked);
         cost = this.props.value;
@@ -102,9 +110,20 @@ class Upi extends React.Component{
         if (this.state.buttonClicked){
             if (validUpi){
                 return(
-                    <h1>
-                        valid upi
-                    </h1>
+                   <div className = "card-container">
+                       <h3>
+                           UPI id Verified <br/>
+                           send Rs.{this.props.value + " "} via {this.state.upiId +" "} ? 
+                       </h3>
+                       <div>
+                           <input type = "button" 
+                                className = "btn btn-success" value = "send"
+                                    onClick ={this.handleSend.bind(this)}/>
+                            <input type = "button"
+                                className = "btn btn-danger" onClick = {this.handleReset.bind(this)}
+                                value = "cancel"/>
+                       </div>
+                   </div>
                 );
             }else{
                 return(
@@ -124,7 +143,8 @@ class Upi extends React.Component{
                                  onChange = {this.handleChange.bind(this)}></input>
                             <input type="button" onClick ={this.handleVerify.bind(this)}    /// bind :|
                                  className = "btn btn-primary btn-sm" value="Verify"/>
-                            <button onClick = {this.handleReset.bind(this)} className ="btn btn-danger             btn-sm">Clear</button>
+                            <button onClick = {this.handleReset.bind(this)} 
+                                className ="btn btn-danger btn-sm">Clear</button>
                         </div>
                     </form>
                 </div>
