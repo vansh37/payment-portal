@@ -1,3 +1,8 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 html , body {
     height : 100%;
     width: 100%;
@@ -28,10 +33,9 @@ html , body {
 #left-main{
     text-align: center;
     display: grid;
-    grid-template-rows: 20% 80%;
+    grid-template-rows: 15% 85%;
     flex-direction: column;
-    padding-right:5px;
-    padding-left:3px;
+    
 }
 #left-main-top{
     grid-row-start: 1;
@@ -41,12 +45,61 @@ html , body {
     display : flex;
     flex-direction: column;
 }
-.btn{
-    
+#card-form{
+    width: 360px;
+    height: 300px;
+    margin: 60px auto 0;
+    border:1px solid black;
 }
+.card-header{
+    text-align : center;
+    height: 60px;
+    padding: 20px 30px 0;
+    border-bottom: 1px solid #e1e8ee;
+}
+.card-body{
+    height: 280px;
+    padding: 30px 30px 20px;
+}
+#card-title{
+    font-size: 18px;
+    margin: 0;
+    color: #5e6977;
+}
+#cardNumber{
+    width : 300px;
+    height : 30px;
+    border-radius: 5%;
+}
+.card-date{
+    display: flex;
+    justify-content: space-between;
+}
+.card-month .card-year{
+    width: 145px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border: 2px solid #e1e8ee;
+    border-radius: 6px;
+}
+.card-verification{
+    display: flex;
+    justify-content: space-between;
+}
+#card-cvv-input{
+    width : 50px;
+}
+#card-cvv-text{
+    color: #5e6977;
+    font-size: 8px;
+}
+#card-button-div{
+    text-align: center;
+}
+
 #right-main{
     display: grid;
-    grid-template-rows: 20% 80%;
+    grid-template-rows: 15% 85%;
     border-left: 1px solid black;
 }
 #right-main-top{

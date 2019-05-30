@@ -1,8 +1,16 @@
-class Card extends React.Component{             /// return debit/credit card form
+import { verify } from "crypto";
 
+class Card extends React.Component{             /// return debit/credit card form
     handleSubmit(){
         const value = document.forms["card-form"]["cardNumber"].value;
-        const flag =  value.split('')
+        var val = "";
+        for (var i=0; i<value.length; i++){
+            if (value[i] == '-')
+                continue;
+            val += value[i];
+        }
+       // alert(val); 
+        const flag =  val.split('')
             .reverse()
             .map( (x) => parseInt(x, 10) )
             .map( (x,idx) => idx % 2 ? x * 2 : x )
@@ -20,27 +28,65 @@ class Card extends React.Component{             /// return debit/credit card for
         cost = this.props.value;
         return(
             <div className="card-container">
-                <form name = "card-form" method="POST" onSubmit = {this.handleSubmit} action="#">
-                    <label htmlFor="number">Card number</label>
-                    <input type="number" className="form-control" id="number"
-                        name = "cardNumber" placeholder="XXXXXXXXXXXXXXXX" required>
-                    </input>
-                    <label htmlFor="month">Expiry Date</label>
-                    
-                    <div className="form-control">
-                        <input type="number"  id = "month"
-                            name = "month" placeholder = "MM" required></input>
-                        <input type = "number" id = "year"
-                            name = "year" placeholder="YY" required></input>
+                <form name = "card-form" id = "card-form" method="POST" onSubmit = {this.handleSubmit} action="third">
+                    {/* cardNumber */}
+                    <div className = "card-header">
+                        <h3 id = "card-title">Enter Card Details</h3>
                     </div>
-                    <label htmlFor ="cvv">CVV</label>
-                    <div className="form-control">
-                         <input type = "number" id = "cvv"
-                            name = "cvv" placeholder = "CVV" required></input>
+                    <div className = "card-body">
+                    <div className = "card-number">
+                        <input type = "text" id = "cardNumber" placeholder = "XXXX-XXXX-XXXX-XXXX"></input>
                     </div>
-                        <button type="submit" className = "btn btn-success">Submit</button>
-                        <button type="reset" className = "btn btn-danger">Cancel</button>
-                    
+                    <br/>
+                    <div className = "card-date">
+                        <div className="card-month">
+                            <select name="Month">
+                                <option value="january">January</option>
+                                <option value="february">February</option>
+                                <option value="march">March</option>
+                                <option value="april">April</option>
+                                <option value="may">May</option>
+                                <option value="june">June</option>
+                                <option value="july">July</option>
+                                <option value="august">August</option>
+                                <option value="september">September</option>
+                                <option value="october">October</option>
+                                <option value="november">November</option>
+                                <option value="december">December</option>
+                            </select>
+                        </div>
+                        <div className="card-year">
+                            <select name = "year">
+                                <option value = "2016">2016</option>
+                                <option value = "2017">2017</option>
+                                <option value = "2018">2018</option>
+                                <option value = "2019">2019</option>
+                                <option value = "2020">2020</option>
+                                <option value = "2021">2021</option>
+                                <option value = "2022">2022</option>
+                                <option value = "2023">2023</option>
+                                <option value = "2024">2024</option>
+                                <option value = "2025">2025</option>
+                                <option value = "2026">2026</option>
+                                <option value = "2027">2027</option>
+                                <option value = "2028">2028</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div className = "card-verification">
+                        <div className = "card-cvv">
+                            <input type = "password" id = "card-cvv-input" placeholder = "CVV"></input>
+                        </div>
+                        <div className = "card-cvv-para">
+                            <p id = "card-cvv-text">3 or 4 digits usually found <br/> on the signature strip</p>
+                        </div>
+                    </div>
+                    <br/>
+                    <div id = "card-button-div">
+                        <button type="submit" className="card-submit btn btn-primary">Proceed</button>
+                    </div>
+                    </div>
                 </form>
             </div>
         );
@@ -51,7 +97,7 @@ class Upi extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            buttonClicked: false,
+           
             validUpi: null,
             upiId: "",
         };
@@ -63,17 +109,14 @@ class Upi extends React.Component{
         .send({ upiId : this.state.upiId })
         .then(res => {
            const verifyStatus = res.text;
-           (verifyStatus == "true") ? 
-            this.setState({validUpi : true}) : this.setState({validUpi : false});
+        this.setState({validUpi : (verifyStatus == "true")});
         });
     }
 
     handleSubmit(e){
       //  e.preventDefault();             /// prevent enter from submitting
         this.handleVerify();
-        if (this.state.validUpi)
-            return true;
-        else return false;
+        return this.state.validUpi;
     }
    
     handleChange(e){
