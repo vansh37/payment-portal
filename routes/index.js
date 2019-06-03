@@ -1,8 +1,12 @@
 var express = require('express');
 
 var c = express();
+
 c.use(express.json());
 c.use(express.urlencoded({extended:true}));
+var bodyParser = require('body-parser');
+c.use(bodyParser.json());
+c.use(bodyParser.urlencoded({extended: false}));
 var router = express.Router();
 //console.log("index.js");
 /* GET home page. */
@@ -21,7 +25,7 @@ router.get('/second' , function(req , res , next ){
 
 router.post('/upiVerify' , function(req , res , next){
   var upiId = req.body.upiId;
-  //console.log(upiId);
+  console.log(req.body);
   const valid = validateUpi(upiId);
   if (valid)
     res.send("true");
@@ -30,8 +34,10 @@ router.post('/upiVerify' , function(req , res , next){
 
 /// post method not working 
 router.post('/second' , function (req , res , next){
- // console.log("post request at second");
-  //console.log(req.body);
+  console.log("post request at second");
+  console.log(req.body);
+  console.log(req.query);
+  console.log(req.params);
   res.render('second' , {});
 });
 
