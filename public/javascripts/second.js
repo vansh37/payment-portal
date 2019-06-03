@@ -107,7 +107,6 @@ class Upi extends React.Component{
         .send({ upiId : this.state.upiId })
         .then(res => {
            const verifyStatus = res.text;
-           console.log("frick" + verifyStatus);
         this.setState({validUpi : (verifyStatus == "true")});
         });
     }
@@ -229,38 +228,30 @@ class App extends React.Component{
         const phone = this.props.phone;
         const bill = (email) ? email : phone;
         return (
-            <div id ="main" >
-               <div id = "left-main">
-                   <div id = "left-main-top">
-                        <h4>Payment Options</h4>
+            <div id = "main">
+                <div id ="main-top">
+                    <div id = "main-top-right">
+                        <h4 id = "payment-text">
+                            You have to pay Rs.
+                                <b>{this.props.cost}</b>. Your Bill will be sent to 
+                                <b>{" " + bill}</b>
+                        </h4>
                     </div>
-                    <div id = "left-main-bottom">
-                         <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 1)}>
-                             <i className="fas fa-credit-card"></i>Card
+                </div>
+                <div id = "main-bottom">
+                    <div id = "main-bottom-left">
+                        <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 1)}>
+                            <i className="fas fa-credit-card"></i>Card
                         </button>
                         <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 2)}>
                             <i className="fas fa-mobile-alt"></i> UPI
                         </button>
-                        {/* <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 3)}>
-                            <i className="fas fa-globe"></i>Netbanking
-                        </button>
-                        <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 4)}>
-                            <i className="fas fa-qrcode"></i> Paytm
-                        </button> */}
                     </div>
-               </div>
-               <div id ="right-main">
-                    <div id = "right-main-top">
-                        <h4 id = "payment-text">
-                            You have to pay Rs.
-                            {this.props.cost}. Your Bill will be sent to 
-                            {" " + bill}
-                        </h4>
+                    <div id = "main-bottom-right">
+                        <PaymentForm paymenttype = {this.state.paymenttype}/>
                     </div>
-                    <div id = "right-main-bottom">
-                            <PaymentForm paymenttype = {this.state.paymenttype} />
-                    </div>
-               </div>
+
+                </div>
             </div>
         );
         

@@ -6,11 +6,7 @@
   .navbar {
       border: 0;
       border-radius: 0;
-      margin-bottom: 10px;
       background-color: #ffffff;
-      border-bottom: 1px solid black;
-
-
   }
  #practo-logo{
    /* height : 100%; */
@@ -20,4 +16,8 @@
  }
  .navbar-brand{
    padding: 0 0 0 0px;
+ }
+
+ .navbar{
+  margin-bottom: 0;
  }
