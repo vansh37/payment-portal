@@ -1,10 +1,10 @@
-var express = require('express');
+const express = require('express');
 
-var c = express();
+const c = express();
 
 c.use(express.json());
 c.use(express.urlencoded({extended:true}));
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 c.use(bodyParser.json());
 c.use(bodyParser.urlencoded({extended: false}));
 var router = express.Router();
@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/second' , function(req , res , next ){
- // console.log("get request at second");
+  // console.log("get request at second");
   //console.log(req.query.phone);
   //console.log(req.query.email);
   res.render('second' , {cost : req.query.cost , email : req.query.email , phone : req.query.phone} );
