@@ -21,7 +21,6 @@ html , body {
 #root {
     grid-column-start: 2;
     grid-row-start : 2;
-    
     background-color: white;
 }
 
@@ -30,6 +29,7 @@ html , body {
     height: 300px;
     margin: 60px auto 0;
     border:1px solid black;
+    border-radius: 5%;
 }
 .card-header{
     text-align : center;
@@ -77,6 +77,10 @@ html , body {
 #card-button-div{
     text-align: center;
 }
+.card-submit{
+    background-color:#14BEF0;
+    border:none;
+}
 
 #payment-text{
     color: white;
@@ -98,7 +102,7 @@ html , body {
 }
 #main-top{
    text-align: center;
-   background-color: blue;
+   background-color: #28328C;
 }
 #payment-text{
     padding: 3px 5px 3px 5px;
@@ -107,6 +111,9 @@ html , body {
     display : grid;
     border-top: 1px solid black;
     grid-template-columns: 30% 70%;
+}
+.btn{
+    border-radius: 0%;
 }
 #main-bottom-left{
     display: flex;
@@ -120,6 +127,9 @@ html , body {
 
 /*MOBILE VIEW STARTS yayayayaya*/
 @media (max-width: 730px){
+    #practo-logo{
+        padding-left:15px;
+    }
     #root-container{
         grid-template-columns: 0% 100% 0%;
         grid-template-rows: 0% 100% 0%;

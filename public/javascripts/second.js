@@ -141,7 +141,7 @@ class Upi extends React.Component{
                             <input style={this.state.validUpi === false ? { borderColor: 'red' } : {}} name = "upiId" id = "upiId"
                                  placeholder="name@bank" value = {this.state.upiId} 
                                  onChange = {this.handleChange.bind(this)}></input>
-                            <button type = "submit" className = "btn btn-primary">submit</button>
+                            <button type = "submit" className = "card-submit btn btn-primary">submit</button>
                         </div>
                     </form>
                 </div>
