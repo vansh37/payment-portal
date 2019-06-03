@@ -1,10 +1,10 @@
-var express = require('express');
+const express = require('express');
 
-var c = express();
+const c = express();
 
 c.use(express.json());
 c.use(express.urlencoded({extended:true}));
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 c.use(bodyParser.json());
 c.use(bodyParser.urlencoded({extended: false}));
 var router = express.Router();
@@ -16,8 +16,8 @@ router.get('/', function(req, res, next) {
   res.render('index', {});
 });
 
-router.get('/second' , function(req , res , next ){
- // console.log("get request at second");
+router.get('/second' , function(req , res , next){
+  // console.log("get request at second");
   //console.log(req.query.phone);
   //console.log(req.query.email);
   res.render('second' , {cost : req.query.cost , email : req.query.email , phone : req.query.phone} );
@@ -54,22 +54,6 @@ module.exports = router;
 
 function validateUpi(upiId){
   //alert("aaaaa");
-  let ret = false , pivot = false;
-  let left  = [] , right = [];
-  for (var i = 0;i < upiId.length; i++){
-      if (upiId[i] == "@"){
-          pivot =true;
-          continue;
-      }
-      if (!pivot)
-        left.push(upiId[i]);
-      else
-        right.push(upiId[i]);
-  }
-  //console.log(left);
-  //console.log(right);
-  //console.log(pivot);
-  if (left.length > 0  && right.length > 0 && pivot)
-    return true;
-  return false;
+  let reg = /^[a-z0-9]+@[a-z]+$/;
+  return reg.test(upiId);
 }

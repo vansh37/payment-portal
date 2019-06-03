@@ -1,4 +1,3 @@
-
 class Card extends React.Component{             /// return debit/credit card form
     handleSubmit(){
         const value = document.forms["card-form"]["cardNumber"].value;
@@ -108,14 +107,21 @@ class Upi extends React.Component{
         .send({ upiId : this.state.upiId })
         .then(res => {
            const verifyStatus = res.text;
+           console.log("frick" + verifyStatus);
         this.setState({validUpi : (verifyStatus == "true")});
         });
     }
 
     handleSubmit(e){
       //  e.preventDefault();             /// prevent enter from submitting
+       // this.handleVerify();
+        // if (this.state.validUpi == false)
+        //     console.log("wrong upi id kiddo");
+
+        console.log("helpppp");
         this.handleVerify();
-        return this.state.validUpi;
+        console.log(this.state.validUpi);
+        return false;
     }
    
     handleChange(e){
@@ -130,13 +136,13 @@ class Upi extends React.Component{
         
             return(
                 <div className = "card-container">
-                    <form onSubmit = {this.handleSubmit} action = "/third" method = "POST">
+                    <form className="upi-form" onSubmit = {this.handleSubmit.bind(this)} action = "/third" method = "POST">
                         <div className = "form-group pure-form">
                             <label htmlFor = "upiId">UPI ID</label>
                             <input style={this.state.validUpi === false ? { borderColor: 'red' } : {}} name = "upiId" id = "upiId"
                                  placeholder="name@bank" value = {this.state.upiId} 
                                  onChange = {this.handleChange.bind(this)}></input>
-                            <button type = "submit">submit</button>
+                            <button type = "submit" className = "btn btn-primary">submit</button>
                         </div>
                     </form>
                 </div>
@@ -144,31 +150,31 @@ class Upi extends React.Component{
     }
 }
 
-class Netbanking extends React.Component{
-    render(){
-        cost = this.props.value;
-        return(
-            <div>
-                <h1>netbanking payment</h1>
-                {cost}
-            </div>
-        );
-    }
-}
+// class Netbanking extends React.Component{
+//     render(){
+//         cost = this.props.value;
+//         return(
+//             <div>
+//                 <h1>netbanking payment</h1>
+//                 {cost}
+//             </div>
+//         );
+//     }
+// }
 
-class Paytm extends React.Component{
-    render(){
-        cost = this.props.value;
-        return(
-            <div>
-                <h1>
-                    Paytm payment
-                </h1>
-                {cost}
-            </div>
-        );
-    }
-}
+// class Paytm extends React.Component{
+//     render(){
+//         cost = this.props.value;
+//         return(
+//             <div>
+//                 <h1>
+//                     Paytm payment
+//                 </h1>
+//                 {cost}
+//             </div>
+//         );
+//     }
+// }
 
 
 class PaymentForm extends React.Component{
@@ -183,15 +189,17 @@ class PaymentForm extends React.Component{
             return (
                <Upi value = {cost} />
             );
-        }else if (paymenttype === 3){                               /// netbanking
-            return(
-                <Netbanking value = {cost} />
-            );
-        }else if (paymenttype === 4){                                /// paytm
-            return(
-                <Paytm value = {cost} />
-            );
-        }else{
+        }
+        // else if (paymenttype === 3){                               /// netbanking
+        //     return(
+        //         <Netbanking value = {cost} />
+        //     );
+        // }else if (paymenttype === 4){                                /// paytm
+        //     return(
+        //         <Paytm value = {cost} />
+        //     );
+        // }
+        else{
             console.log("wrong payment type in props");
             return (
                 <h1>
@@ -233,12 +241,12 @@ class App extends React.Component{
                         <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 2)}>
                             <i className="fas fa-mobile-alt"></i> UPI
                         </button>
-                        <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 3)}>
+                        {/* <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 3)}>
                             <i className="fas fa-globe"></i>Netbanking
                         </button>
                         <button className="btn  btn-lg" onClick = {this.handleClick.bind(this , 4)}>
                             <i className="fas fa-qrcode"></i> Paytm
-                        </button>
+                        </button> */}
                     </div>
                </div>
                <div id ="right-main">

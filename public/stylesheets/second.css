@@ -118,3 +118,7 @@ html , body {
 .card-container{
     grid-column-start: 2;
 }
+
+.upi-form{
+    padding-top :50px;
+}
