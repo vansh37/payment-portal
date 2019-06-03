@@ -7,7 +7,7 @@ html , body {
     height : 100%;
     width: 100%;
     background-color: lightgray;
-    color: #4d4e53;
+    color: #77787c;
     font-family: 'Open Sans',Arial,sans-serif;
     line-height: 1.5;
 }
@@ -37,6 +37,7 @@ html , body {
     padding: 20px 30px 0;
     border-bottom: 1px solid #e1e8ee;
 }
+
 .card-body{
     height: 280px;
     padding: 30px 30px 20px;
@@ -49,7 +50,7 @@ html , body {
 #cardNumber{
     width : 250px;
     height : 30px;
-    border-radius: 5%;
+    border-radius: 1%;
 }
 .card-date{
     display: flex;
@@ -99,7 +100,9 @@ html , body {
    text-align: center;
    background-color: blue;
 }
-
+#payment-text{
+    padding: 3px 5px 3px 5px;
+}
 #main-bottom{
     display : grid;
     border-top: 1px solid black;
@@ -108,7 +111,11 @@ html , body {
 #main-bottom-left{
     display: flex;
     flex-direction: column;
-    
+    border-right: #77787c solid 1px;
+}
+
+.fas{
+    padding-right:30px;
 }
 
 /*MOBILE VIEW STARTS yayayayaya*/
@@ -120,5 +127,8 @@ html , body {
     #main-bottom{
         display : flex;
         flex-direction: column;
+    }
+    #main-bottom-left{
+        border-right:0px;
     }
 }

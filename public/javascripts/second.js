@@ -149,33 +149,6 @@ class Upi extends React.Component{
     }
 }
 
-// class Netbanking extends React.Component{
-//     render(){
-//         cost = this.props.value;
-//         return(
-//             <div>
-//                 <h1>netbanking payment</h1>
-//                 {cost}
-//             </div>
-//         );
-//     }
-// }
-
-// class Paytm extends React.Component{
-//     render(){
-//         cost = this.props.value;
-//         return(
-//             <div>
-//                 <h1>
-//                     Paytm payment
-//                 </h1>
-//                 {cost}
-//             </div>
-//         );
-//     }
-// }
-
-
 class PaymentForm extends React.Component{
     render(){
         const paymenttype = this.props.paymenttype;
@@ -188,17 +161,7 @@ class PaymentForm extends React.Component{
             return (
                <Upi value = {cost} />
             );
-        }
-        // else if (paymenttype === 3){                               /// netbanking
-        //     return(
-        //         <Netbanking value = {cost} />
-        //     );
-        // }else if (paymenttype === 4){                                /// paytm
-        //     return(
-        //         <Paytm value = {cost} />
-        //     );
-        // }
-        else{
+        }else{
             console.log("wrong payment type in props");
             return (
                 <h1>
@@ -232,18 +195,18 @@ class App extends React.Component{
                 <div id ="main-top">
                     <div id = "main-top-right">
                         <h4 id = "payment-text">
-                            You have to pay Rs.
-                                <b>{this.props.cost}</b>. Your Bill will be sent to 
+                            You have to pay <b>Rs.
+                                {this.props.cost}</b>. Your Bill will be sent to 
                                 <b>{" " + bill}</b>
                         </h4>
                     </div>
                 </div>
                 <div id = "main-bottom">
                     <div id = "main-bottom-left">
-                        <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 1)}>
+                        <button className="btn btn-lg" style={(this.state.paymenttype == 1) ? {color:"black"} : {}} onClick = {this.handleClick.bind(this , 1)}>
                             <i className="fas fa-credit-card"></i>Card
                         </button>
-                        <button className="btn btn-lg" onClick = {this.handleClick.bind(this , 2)}>
+                        <button className="btn btn-lg" style={(this.state.paymenttype == 2) ? {color:"black"} : {}} onClick = {this.handleClick.bind(this , 2)}>
                             <i className="fas fa-mobile-alt"></i> UPI
                         </button>
                     </div>
