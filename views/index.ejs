@@ -18,6 +18,11 @@
                 alert("please fill out atleast email or phone number");
                 return false;
             }else{
+                if (phone.length < 10){
+                    var ph = document.querySelector('#phone');
+                    ph.style.border = '1px solid red';
+                    return false;
+                }
                 return true;
             }
         }
