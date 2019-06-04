@@ -1,14 +1,6 @@
 const express = require('express');
-
 const c = express();
-
-c.use(express.json());
-c.use(express.urlencoded({extended:true}));
-const bodyParser = require('body-parser');
-c.use(bodyParser.json());
-c.use(bodyParser.urlencoded({extended: false}));
 var router = express.Router();
-
 
 
 router.get('/', function(req, res, next) {
@@ -22,7 +14,7 @@ router.get('/second' , function(req , res , next){
 router.post('/upiVerify' , function(req , res , next){
   var upiId = req.body.upiId;
   const valid = validateUpi(upiId);
-  console.log("upi status "+ valid);
+  console.log("upi status of  "+upiId+"  is "+ valid);
   if (valid)
     res.send("true");
   else res.send("false");
@@ -49,7 +41,6 @@ module.exports = router;
 
 
 function validateUpi(upiId){
-  //alert("aaaaa");
   let reg = /^[a-z0-9]+@[a-z]+$/;
   return reg.test(upiId);
 }

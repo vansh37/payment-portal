@@ -1,4 +1,11 @@
 class Card extends React.Component{             /// return debit/credit card form
+
+    constructor(props){
+        super(props);
+        this.state = {
+            validForm:null,
+        };
+    }
     handleSubmit(){
         const value = document.forms["card-form"]["cardNumber"].value;
         var val = "";
@@ -8,6 +15,9 @@ class Card extends React.Component{             /// return debit/credit card for
             val += value[i];
         }
        // alert(val); 
+       if (val.length < 16)
+            return null;
+
         const flag =  val.split('')
             .reverse()
             .map( (x) => parseInt(x, 10) )
@@ -16,24 +26,28 @@ class Card extends React.Component{             /// return debit/credit card for
             .reduce( (accum, x) => accum += x ) % 10 === 0;
 
         if (flag == false){
-            alert("Wrong card value entered");
+           // alert("Wrong card value entered");
             return false;
         }else{
             return true;
         }
     }
+    handleChange(e){
+       this.setState({validForm : this.handleSubmit()});
+    }
     render(){
         cost = this.props.value;
         return(
             <div className="card-container">
-                <form name = "card-form" id = "card-form" method="POST" onSubmit = {this.handleSubmit} action="third">
+                <form name = "card-form" id = "card-form" method="POST" action="third">
                     {/* cardNumber */}
                     <div className = "card-header">
                         <h3 id = "card-title">Enter Card Details</h3>
                     </div>
                     <div className = "card-body">
                     <div className = "card-number">
-                        <input type = "text" id = "cardNumber" placeholder = "XXXX-XXXX-XXXX-XXXX"></input>
+                        <input type = "text" style={this.state.validForm === false ? { borderColor: 'red' } : {}} 
+                            onChange = {this.handleChange.bind(this)} id = "cardNumber" placeholder = "XXXX-XXXX-XXXX-XXXX"></input>
                     </div>
                     <br/>
                     <div className = "card-date">
@@ -74,7 +88,8 @@ class Card extends React.Component{             /// return debit/credit card for
                     <br/>
                     <div className = "card-verification">
                         <div className = "card-cvv">
-                            <input type = "password" id = "card-cvv-input" placeholder = "CVV"></input>
+                            <input type = "password" id = "card-cvv-input" pattern = ".{3,4}" title="3 to 4 numbers"
+                                 placeholder = "CVV" required></input>
                         </div>
                         <div className = "card-cvv-para">
                             <p id = "card-cvv-text">3 or 4 digits usually found <br/> on the signature strip</p>
@@ -82,7 +97,7 @@ class Card extends React.Component{             /// return debit/credit card for
                     </div>
                     <br/>
                     <div id = "card-button-div">
-                        <button type="submit" className="card-submit btn btn-primary">Proceed</button>
+                        <button type="submit" disabled = {!(this.state.validForm == true)} className="card-submit btn btn-primary">Proceed</button>
                     </div>
                     </div>
                 </form>
@@ -99,33 +114,37 @@ class Upi extends React.Component{
             validUpi: null,
             upiId: "",
         };
+        this.handleVerify = this.handleVerify.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleVerify(){
+     handleVerify(callback){
+        console.log("in verify function");
         this.setState({buttonClicked : true});
         superagent
         .post('/upiVerify')
         .send({ upiId : this.state.upiId })
         .then(res => {
            const verifyStatus = res.text;
-        this.setState({validUpi : (verifyStatus == "true")});
+        this.setState({validUpi : (verifyStatus == "true")} , function(){
+            console.log("handle verify " + this.state.validUpi);
+            callback();
+        });
+       
         });
     }
 
-    handleSubmit(e){
-      //  e.preventDefault();             /// prevent enter from submitting
-       // this.handleVerify();
-        // if (this.state.validUpi == false)
-        //     console.log("wrong upi id kiddo");
-
-        console.log("helpppp");
-        this.handleVerify();
-        console.log(this.state.validUpi);
-        return false;
+   handleSubmit(e){
+       console.log("in handle submit");
+      this.handleVerify(()=>{
+            console.log(this.state.validUpi);
+       });
     }
    
     handleChange(e){
         this.setState({upiId : e.target.value});
-        //alert(this.state.upiId);
+        this.handleVerify(()=>{
+            console.log(this.state.validUpi);
+        });
   }
 
     render(){
@@ -135,13 +154,13 @@ class Upi extends React.Component{
         
             return(
                 <div className = "card-container">
-                    <form className="upi-form" onSubmit = {this.handleSubmit.bind(this)} action = "/third" method = "POST">
+                    <form className="upi-form" onSubmit = {this.handleSubmit} action = "/third" method = "POST">
                         <div className = "form-group pure-form">
                             <label htmlFor = "upiId">UPI ID</label>
                             <input style={this.state.validUpi === false ? { borderColor: 'red' } : {}} name = "upiId" id = "upiId"
                                  placeholder="name@bank" value = {this.state.upiId} 
                                  onChange = {this.handleChange.bind(this)}></input>
-                            <button type = "submit" className = "card-submit btn btn-primary">submit</button>
+                            <button type = "submit" disabled = {!this.state.validUpi} className = "card-submit btn btn-primary">submit</button>
                         </div>
                     </form>
                 </div>
