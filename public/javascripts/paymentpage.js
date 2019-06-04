@@ -25,13 +25,9 @@ class Card extends React.Component{             /// return debit/credit card for
             .map( (x) => x > 9 ? (x % 10) + 1 : x )
             .reduce( (accum, x) => accum += x ) % 10 === 0;
 
-        if (flag == false){
-           // alert("Wrong card value entered");
-            return false;
-        }else{
-            return true;
-        }
+        return flag;
     }
+    // no DOM validation
     handleChange(e){
        this.setState({validForm : this.handleSubmit()});
     }
@@ -161,7 +157,7 @@ class Upi extends React.Component{
                             <label htmlFor = "upiId">UPI ID</label>
                             <input style={this.state.validUpi === false ? { borderColor: 'red' } : {}} name = "upiId" id = "upiId"
                                  placeholder="name@bank" value = {this.state.upiId} 
-                                 onChange = {this.handleChange.bind(this)}></input>
+                                 onChange = {this.handleChange.bind(this)}></input>     
                             <button type = "submit" disabled = {!this.state.validUpi} className = "card-submit btn btn-primary">submit</button>
                         </div>
                     </form>
@@ -169,6 +165,7 @@ class Upi extends React.Component{
             );
     }
 }
+/*how bind works !!*/ 
 
 class PaymentForm extends React.Component{
     render(){

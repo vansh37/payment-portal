@@ -41,6 +41,6 @@ module.exports = router;
 
 
 function validateUpi(upiId){
-  let reg = /^[a-z0-9]+@[a-z]+$/;
+  let reg = /^[a-z0-9]+.[a-z0-9]+@[a-z]+$/; /*correct it !*/
   return reg.test(upiId);
 }

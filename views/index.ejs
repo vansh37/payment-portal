@@ -3,7 +3,7 @@
 <head>
     <% include partials/head %>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"  initial-scale="1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>payment portal</title>
     <script>
@@ -18,7 +18,7 @@
                 alert("please fill out atleast email or phone number");
                 return false;
             }else{
-                if (phone.length < 10){
+                if (phone.length != 10){
                     var ph = document.querySelector('#phone');
                     ph.style.border = '1px solid red';
                     return false;
@@ -27,8 +27,7 @@
             }
         }
     </script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=Array.from%2CPromise%2CSymbol%2CObject.setPrototypeOf%2CObject.getOwnPropertySymbols"></script>
-    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    
     <link rel="stylesheet" href ="./stylesheets/first.css">
 </head>
 
