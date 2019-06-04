@@ -39,7 +39,7 @@ class Card extends React.Component{             /// return debit/credit card for
         cost = this.props.value;
         return(
             <div className="card-container">
-                <form name = "card-form" id = "card-form" method="POST" action="third">
+                <form name = "card-form" id = "card-form" method="POST" action="result">
                     {/* cardNumber */}
                     <div className = "card-header">
                         <h3 id = "card-title">Enter Card Details</h3>
@@ -141,10 +141,12 @@ class Upi extends React.Component{
     }
    
     handleChange(e){
-        this.setState({upiId : e.target.value});
-        this.handleVerify(()=>{
-            console.log(this.state.validUpi);
+        this.setState({upiId : e.target.value} , function(){
+            this.handleVerify(()=>{
+                console.log(this.state.validUpi);
+            });
         });
+        
   }
 
     render(){
@@ -154,7 +156,7 @@ class Upi extends React.Component{
         
             return(
                 <div className = "card-container">
-                    <form className="upi-form" onSubmit = {this.handleSubmit} action = "/third" method = "POST">
+                    <form className="upi-form" onSubmit = {this.handleSubmit} action = "/result" method = "POST">
                         <div className = "form-group pure-form">
                             <label htmlFor = "upiId">UPI ID</label>
                             <input style={this.state.validUpi === false ? { borderColor: 'red' } : {}} name = "upiId" id = "upiId"

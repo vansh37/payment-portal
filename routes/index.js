@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
   res.render('index', {});
 });
 
-router.get('/second' , function(req , res , next){
-  res.render('second' , {cost : req.query.cost , email : req.query.email , phone : req.query.phone} );
+router.get('/paymentpage' , function(req , res , next){
+  res.render('paymentpage' , {cost : req.query.cost , email : req.query.email , phone : req.query.phone} );
 });
 
 router.post('/upiVerify' , function(req , res , next){
@@ -21,21 +21,21 @@ router.post('/upiVerify' , function(req , res , next){
 });
 
 /// post method not working 
-router.post('/second' , function (req , res , next){
+router.post('/paymentpage' , function (req , res , next){
   console.log("post request at second");
   console.log(req.body);
   console.log(req.query);
   console.log(req.params);
-  res.render('second' , {});
+  res.render('paymentpage' , {});
 });
 
-router.post('/third' , function(req , res , next){
-  console.log("in post third");
+router.post('/result' , function(req , res , next){
+  console.log("in post result");
   console.log(req.body);
-  res.render('third' , {});
+  res.render('result' , {});
 });
-router.get('/third' , function(req, res , next){
-  res.render('third');
+router.get('/result' , function(req, res , next){
+  res.render('result');
 });
 module.exports = router;
 
